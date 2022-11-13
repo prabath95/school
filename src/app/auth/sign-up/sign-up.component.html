@@ -1,0 +1,108 @@
+<div class="container">
+
+    <main>
+        <div class="py-5 text-center">
+            <!-- <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+            <h2>Register Here!</h2>
+            <p class="lead">Please fill the below details and create an account to use the application.</p>
+        </div>
+
+        <div class="row g-5">
+            <div class="col-md-12 col-lg-12">
+                <!-- <h4 class="mb-3">Enter Details</h4> -->
+                <form [formGroup]="signUpForm">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label for="firstName" class="form-label">First name</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="First Name"
+                                [ngClass]="validateField('firstName')?'is-invalid':formTouched('firstName')?'is-valid':''"
+                                formControlName="firstName">
+                            <div class="invalid-feedback" *ngIf="form['firstName']?.errors?.['required']">
+                                Valid first name is required.
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="lastName" class="form-label">Last name</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Last Name"
+                                [ngClass]="validateField('lastName')?'is-invalid':formTouched('lastName')?'is-valid':''"
+                                formControlName="lastName">
+                            <div class="invalid-feedback" *ngIf="form['lastName']?.errors?.['required']">
+                                Valid last name is required.
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="username" class="form-label">Username</label>
+                            <div class="input-group has-validation">
+                                <input type="text" class="form-control" id="username" placeholder="Username"
+                                    [ngClass]="validateField('userName')?'is-invalid':formTouched('userName')?'is-valid':''"
+                                    formControlName="userName">
+                                <div class="invalid-feedback" *ngIf="form['userName']?.errors?.['required']">
+                                    Your username is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="email" class="form-label">Email <span class="text-muted"></span></label>
+                            <input type="email" class="form-control" id="email" placeholder="you@example.com"
+                                [ngClass]="validateField('email')?'is-invalid':formTouched('email')?'is-valid':''"
+                                formControlName="email">
+                            <div class="invalid-feedback" *ngIf="form['email']?.errors?.['required']">
+                                Email is required.
+                            </div>
+                            <div class="invalid-feedback" *ngIf="form['email']?.errors?.['email']">
+                                Please enter a valid email address.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address" placeholder="1234 Main St"
+                                [ngClass]="validateField('address')?'is-invalid':formTouched('address')?'is-valid':''"
+                                formControlName="address">
+                            <div class="invalid-feedback" *ngIf="form['address']?.errors?.['required']">
+                                Please enter your shipping address.
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label class="form-label" for="password">Please enter password.</label>
+                            <input type="password" class="form-control" id="password" formControlName="password"
+                                [ngClass]="validateField('password')?'is-invalid':formTouched('password')?'is-valid':''"
+                                placeholder="Password">
+                            <div class="invalid-feedback" *ngIf="form['password']?.errors?.['required']">
+                                Please enter your shipping address.
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label class="form-label" for="password-confirmation">
+                                Please re-enter password.</label>
+                            <input type="password" class="form-control" id="password-confirmation"
+                                [ngClass]="validateField('confirmPassword')?'is-invalid':formTouched('confirmPassword')?'is-valid':''"
+                                placeholder="Confirm Password" formControlName="confirmPassword">
+                            <div class="invalid-feedback" *ngIf="form['confirmPassword']?.errors?.['required']">
+                                Please enter your shipping address.
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <button class="w-100 btn btn-danger btn-lg" type="button"
+                                (click)="reset()">Reset.</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <button class="w-100 btn btn-success btn-lg" type="button" (click)="register()">Register
+                                Here.</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+</div>

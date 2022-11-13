@@ -1,0 +1,38 @@
+<div class="justify-content-center container-custom">
+    <div class="card">
+        <main class="form-signin w-100 m-auto">
+            <form [formGroup]="loginForm">
+                <h1 class="h3 mb-3 fw-normal text-center">Hi Welcome Back!</h1>
+
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="userName" formControlName="userName"
+                        placeholder="Username"
+                        [ngClass]="validateField('userName')?'is-invalid':formTouched('userName')?'is-valid':''">
+                    <label for="userName">Username</label>
+                    <div class="invalid-feedback" *ngIf="form['userName']?.errors?.['required']">
+                        Your username is required.
+                    </div>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="password" formControlName="password"
+                        placeholder="Password"
+                        [ngClass]="validateField('password')?'is-invalid':formTouched('password')?'is-valid':''">
+                    <label for="password">Password</label>
+                    <div class="invalid-feedback" *ngIf="form['password']?.errors?.['required']">
+                        Password is required.
+                    </div>
+                </div>
+
+                <div class="checkbox mb-3">
+                    <!-- <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label> -->
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="button" (click)="login()">Login</button>
+                <p class="text-muted">
+                    If you don't have an account <a (click)="navigate()" class="text-reset">click here</a>.
+                </p>
+            </form>
+        </main>
+    </div>
+</div>

@@ -1,0 +1,143 @@
+<div class="container py-4">
+    <div class="pricing-header text-center">
+        Reporting Student Snapshot for <b>{{ form['class'].value?.name }}</b>
+    </div>
+    <div class="card mergin-small">
+        <!-- <div class="card-header"> -->
+        <!-- </div> -->
+        <div class="card-body">
+            <form [formGroup]="searchForm">
+                <div class="row g-3">
+                    <div class="col-sm-3">
+                        <label for="class" class="form-label">Class</label>
+                        <select class="form-select" id="class" formControlName="class" formControlName="class"
+                            (change)="classChange()">
+                            <option value=null selected>Please Select Class</option>
+                            <option *ngFor="let class of classData" [ngValue]="class">{{class.name}}</option>
+                        </select>
+                        <div class="invalid-feedback" *ngIf="form['class']?.errors?.['required']">
+                            Class is required.
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="student" class="form-label">Student</label>
+                        <select class="form-select" id="student" formControlName="student" formControlName="student"
+                            (change)="changeStudent()">
+                            <option value=null selected>Please Select Student</option>
+                            <option *ngFor="let student of students" [ngValue]="student">{{student}}</option>
+                        </select>
+                        <div class="invalid-feedback" *ngIf="form['student']?.errors?.['required']">
+                            Student is required.
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-3">
+                        <label for="dateForm" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" id="dateForm" formControlName="startDate">
+                        <div class="invalid-feedback" *ngIf="form['startDate']?.errors?.['required']">
+                            Start date is required.
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="dateTo" class="form-label">End Date</label>
+                        <input type="date" class="form-control" id="dateTo" formControlName="endDate">
+                        <div class="invalid-feedback" *ngIf="form['endDate']?.errors?.['required']">
+                            Start date is required.
+                        </div>
+                    </div> -->
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="card mergin-small">
+        <div class="card-body">
+            <div *ngFor="let summery of classSummery">
+                <!-- <div class="pricing-header p-3 pb-md-4 mx-auto text-center"> -->
+                <!-- <h1 class="display-4 fw-normal">Pricing</h1> -->
+                <p class="fs-7 text-muted">Overall result for the <b> {{getObjectKey(summery) }} </b>
+                </p>
+                <!-- </div> -->
+                <div class="progress">
+                    <div class="progress-bar default-color " role="progressbar" aria-label="Segment one"
+                        [style]="progressClass(summery[getObjectKey(summery)].unassigned)" aria-valuenow="15"
+                        aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                    <div class="progress-bar week-color" role="progressbar" aria-label="Segment two"
+                        [style]="progressClass(summery[getObjectKey(summery)].week)" aria-valuenow="15"
+                        aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                    <div class="progress-bar ok-color" role="progressbar" aria-label="Segment three"
+                        [style]="progressClass(summery[getObjectKey(summery)].ok)" aria-valuenow="15" aria-valuemin="0"
+                        aria-valuemax="100">
+                    </div>
+                    <div class="progress-bar good-color" role="progressbar" aria-label="Segment four"
+                        [style]="progressClass(summery[getObjectKey(summery)].good)" aria-valuenow="15"
+                        aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                    <div class="progress-bar excellent-color" role="progressbar" aria-label="Segment five"
+                        [style]="progressClass(summery[getObjectKey(summery)].excellent)" aria-valuenow="15"
+                        aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2">
+                        <span class="legend-label-color default-color"></span>
+                        <span class="legend-label-text">Unassigned
+                            ({{summery[getObjectKey(summery)].unassigned}})</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <span class="legend-label-color week-color"></span>
+                        <span class="legend-label-text">Week ({{summery[getObjectKey(summery)].week}}%)</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <span class="legend-label-color ok-color"></span>
+                        <span class="legend-label-text">Ok ({{summery[getObjectKey(summery)].ok}}%)</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <span class="legend-label-color good-color"></span>
+                        <span class="legend-label-text">Good ({{summery[getObjectKey(summery)].good}}%)</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <span class="legend-label-color excellent-color"></span>
+                        <span class="legend-label-text">Excellent ({{summery[getObjectKey(summery)].excellent}}%)</span>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+                <br>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card mergin-small" *ngIf="tableData.length > 0">
+        <div class="card-body">
+            <table class="table">
+                <thead class="table-light table-bordered">
+                    <tr>
+                        <th scope="col">Date Completed</th>
+                        <th scope="col">Content</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Skill</th>
+                        <th scope="col">Result</th>
+                        <th scope="col">Time Spent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let detail of tableData">
+                        <td>{{formatDate(detail.attempts.weeks[detail.attempts.weeks.length - 1]) | date : 'd MMM y' }}
+                        </td>
+                        <td>{{detail.content}}</td>
+                        <td>{{detail.type}}</td>
+                        <td>{{detail.skill}}</td>
+                        <td>{{detail.attempts.values[detail.attempts.values.length - 1]}} % </td>
+                        <td>{{detail.time}}</td>
+                    </tr>
+                    <tr colspan="6" *ngIf="tableData.length == 0"> No Data Found for - {{form['student'].value}}</tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
